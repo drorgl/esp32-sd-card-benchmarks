@@ -1,0 +1,21 @@
+{
+    "name": "ConsoleTable",
+    "version": "1.0.0",
+    "keywords": "Console Table",
+    "description": "ConsoleTable is a library that allows you to organize your data in a table based structure.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/766F6964/ConsoleTable"
+    },
+    "build": {
+        "srcFilter":[
+            "-<main.cpp>",
+            "+<ConsoleTable.cpp>"
+        ]
+    },
+    "license":"MIT",
+    "frameworks": "*",
+    "dependencies":[
+        
+    ]
+}
