@@ -321,7 +321,8 @@ static int vfs_fat_open(void* ctx, const char * path, int flags, int mode)
     FIL* file = &fat_ctx->files[fd];
     //fast-seek is only allowed in read mode, since file cannot be expanded
     //to use it.
-    if(!(fat_mode_conv(flags) & (FA_WRITE))) {
+
+    if((fat_mode_conv(flags) & (FA_READ))) {
         DWORD *clmt_mem =  ff_memalloc(sizeof(DWORD) * CONFIG_FATFS_FAST_SEEK_BUFFER_SIZE);
         if (clmt_mem == NULL) {
             f_close(file);
@@ -344,6 +345,12 @@ static int vfs_fat_open(void* ctx, const char * path, int flags, int mode)
             //If linkmap creation fails, fallback to the non fast seek.
             ff_memfree(file->cltbl);
             file->cltbl = NULL;
+        }else{
+            ESP_LOGV(TAG, "%s: fast-seek has: %s using %d clmt",
+                __func__,
+                (res == FR_OK) ? "activated" : "failed",
+                file->cltbl[0]
+                );
         }
     } else {
         file->cltbl = NULL;
@@ -538,7 +545,7 @@ static off_t vfs_fat_lseek(void* ctx, int fd, off_t offset, int mode)
         return -1;
     }
 
-    ESP_LOGD(TAG, "%s: offset=%ld, filesize:=%d", __func__, new_pos, f_size(file));
+    ESP_LOGD(TAG, "%s: offset=%ld, filesize:=%d", __func__, new_pos,(int) f_size(file));
     FRESULT res = f_lseek(file, new_pos);
     if (res != FR_OK) {
         ESP_LOGD(TAG, "%s: fresult=%d", __func__, res);
