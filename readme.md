@@ -1,8 +1,8 @@
 # SD Card Benchmarks
 This is a thorough test of more and less familiar ESP32 SD Card access methods. 
-My journey began when I discovered the same problem described in this (issue)[https://github.com/espressif/esp-idf/issues/3249].
+My journey began when I discovered the same problem described in this [issue](https://github.com/espressif/esp-idf/issues/3249).
 
-This repository is related to my article (ESP32 SD Card Optimization)[https://blog.drorgluska.com/2022/06/esp32-sd-card-optimization.html]
+This repository is related to my article [ESP32 SD Card Optimization](https://blog.drorgluska.com/2022/06/esp32-sd-card-optimization.html)
 
 # Tests:
 * Write Sequential, variable block sizes
@@ -18,23 +18,22 @@ This repository is related to my article (ESP32 SD Card Optimization)[https://bl
 * Block Size: 512 bytes, 1k, 2k, 4k, 8k, 16k, 32k, 64k
 
 
-* https://www.reddit.com/r/esp32/comments/d71es9/a_breakdown_of_my_experience_trying_to_talk_to_an/
-
 # TODO
-[v] Display results in table
-v https://github.com/766F6964/ConsoleTable
-- https://github.com/haarcuba/cpp-text-table
-- https://github.com/seleznevae/libfort
-[] use f_expand to create the file (contiguous file, no fragmentation!)
-[] syncronized yes/no (flush / fsync)
-[] concurrency
+- [x] Display results in table
+    - https://github.com/766F6964/ConsoleTable
+    - https://github.com/haarcuba/cpp-text-table
+    - https://github.com/seleznevae/libfort
+- [ ] use f_expand to create the file (contiguous file, no fragmentation!)
+- [ ] syncronized yes/no (flush / fsync)
+- [ ] concurrency
 
-# known issues
-SD card is not unmounting properly, need to remove and reinsert the card when completing the SPI tests
+# Known Issues
+* SD card is not unmounting properly, need to remove and reinsert the card when completing the SPI tests
 
 # Basic Configuration
-ESP32 WROVER 240Mhz + 80Mhz PSRAM
-
+* ESP32 WROVER 240Mhz + 80Mhz PSRAM
+* Disabled WDT
+* FATFS LFN in External RAM, Fast Seek Buffer 64.
 
 # Results
 
@@ -991,3 +990,6 @@ Size: 30436MB
 ┃  65,536  ┃  R    ┃  Rnd      ┃  X     ┃  65,536   ┃  414ms    ┃  19     ┃  512 KB  ┃  1,266,396  ┃
 ┗━━━━━━━━━━┻━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━━━┻━━━━━━━━━┻━━━━━━━━━━┻━━━━━━━━━━━━━┛
 ```
+
+# Reference
+* https://www.reddit.com/r/esp32/comments/d71es9/a_breakdown_of_my_experience_trying_to_talk_to_an/
